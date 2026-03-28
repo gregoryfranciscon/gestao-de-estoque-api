@@ -1,0 +1,40 @@
+/* Estilos exclusivos da tela Movimentacoes */
+
+body[data-page="movimentacoes"] main {
+  background: #f8fafc;
+}
+
+body[data-page="movimentacoes"] main h1 {
+  letter-spacing: -0.02em;
+}
+
+body[data-page="movimentacoes"] form {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 1rem;
+}
+
+body[data-page="movimentacoes"] input[type="number"],
+body[data-page="movimentacoes"] input[type="datetime-local"] {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+}
+
+body[data-page="movimentacoes"] input[type="number"]:focus,
+body[data-page="movimentacoes"] input[type="datetime-local"]:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+body[data-page="movimentacoes"] table tbody tr {
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+body[data-page="movimentacoes"] table tbody tr:hover {
+  transform: translateX(2px);
+}
+
+@media (max-width: 768px) {
+  body[data-page="movimentacoes"] main {
+    padding: 1rem;
+  }
+}

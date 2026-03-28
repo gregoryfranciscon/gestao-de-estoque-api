@@ -1,0 +1,40 @@
+/* Estilos exclusivos da tela Produtos */
+
+body[data-page="produtos"] main {
+  background: #f8fafc;
+}
+
+body[data-page="produtos"] main h1 {
+  letter-spacing: -0.02em;
+}
+
+body[data-page="produtos"] input[type="text"] {
+  background-color: #ffffff;
+  border-color: #d1d5db;
+}
+
+body[data-page="produtos"] input[type="text"]:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+body[data-page="produtos"] table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #ffffff;
+}
+
+body[data-page="produtos"] table tbody tr {
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+body[data-page="produtos"] table tbody tr:hover {
+  transform: translateX(2px);
+}
+
+@media (max-width: 768px) {
+  body[data-page="produtos"] main {
+    padding: 1rem;
+  }
+}

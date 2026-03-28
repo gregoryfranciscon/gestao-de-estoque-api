@@ -1,0 +1,304 @@
+﻿<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movimentações - Sistema de Gestão de Estoque</title>
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/movimentacoes.css" />
+</head>
+
+<body data-page="movimentacoes">
+  <div class="flex h-screen bg-gray-50">
+    <aside class="w-64 bg-slate-900 text-white flex flex-col">
+      <div class="p-6 border-b border-slate-700">
+        <h1 class="text-xl font-semibold">Sistema de Estoque</h1>
+      </div>
+
+      <nav class="flex-1 p-4">
+        <ul class="space-y-2">
+          <li>
+            <a href="./dashboard.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-slate-300 hover:bg-slate-800 hover:text-white">
+              <svg class="lucide size-5" viewBox="0 0 24 24" aria-hidden="true">
+                <rect width="7" height="9" x="3" y="3" rx="1"></rect>
+                <rect width="7" height="5" x="14" y="3" rx="1"></rect>
+                <rect width="7" height="9" x="14" y="12" rx="1"></rect>
+                <rect width="7" height="5" x="3" y="16" rx="1"></rect>
+              </svg>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="./produtos.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-slate-300 hover:bg-slate-800 hover:text-white">
+              <svg class="lucide size-5" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z">
+                </path>
+                <path d="M12 22V12"></path>
+                <polyline points="3.29 7 12 12 20.71 7"></polyline>
+                <path d="m7.5 4.27 9 5.15"></path>
+              </svg>
+              <span>Produtos</span>
+            </a>
+          </li>
+          <li>
+            <a href="./fornecedores.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-slate-300 hover:bg-slate-800 hover:text-white">
+              <svg class="lucide size-5" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <span>Fornecedores</span>
+            </a>
+          </li>
+          <li>
+            <a href="./movimentacoes.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors bg-blue-600 text-white">
+              <svg class="lucide size-5" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 3 4 7l4 4"></path>
+                <path d="M4 7h16"></path>
+                <path d="m16 21 4-4-4-4"></path>
+                <path d="M20 17H4"></path>
+              </svg>
+              <span>Movimentações</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="p-4 border-t border-slate-700">
+        <div class="text-xs text-slate-400">
+          <p>© 2026 Sistema de Gestão</p>
+        </div>
+      </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="bg-white border-b border-gray-200 px-8 py-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-2xl font-semibold text-gray-800">Sistema de Gestão de Estoque</h2>
+          <div class="flex items-center gap-4">
+            <span class="text-sm text-gray-600">sexta-feira, 27 de março de 2026</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-8">
+        <div class="space-y-6">
+          <h1 class="text-3xl font-semibold text-gray-900">Movimentações de Estoque</h1>
+
+          <div
+            class="bg-card text-card-foreground flex flex-col gap-6 rounded-xl border p-6 bg-white border-gray-200 shadow-sm">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Registrar Movimentação</h2>
+
+            <form class="space-y-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-2">
+                  <label class="flex items-center gap-2 text-sm leading-none font-medium select-none">Produto</label>
+                  <button type="button" data-size="default"
+                    class="border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex w-full items-center justify-between gap-2 rounded-md border bg-input-background px-3 py-2 text-sm whitespace-nowrap transition-[color,box-shadow] outline-none data-[size=default]:h-9">
+                    <span class="text-muted-foreground">Selecione um produto</span>
+                    <svg class="lucide size-4 opacity-50" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="m6 9 6 6 6-6"></path>
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="space-y-2">
+                  <label class="flex items-center gap-2 text-sm leading-none font-medium select-none">Tipo de
+                    Movimentação</label>
+                  <button type="button" data-size="default"
+                    class="border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex w-full items-center justify-between gap-2 rounded-md border bg-input-background px-3 py-2 text-sm whitespace-nowrap transition-[color,box-shadow] outline-none data-[size=default]:h-9">
+                    <span class="text-muted-foreground">Selecione o tipo</span>
+                    <svg class="lucide size-4 opacity-50" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="m6 9 6 6 6-6"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-2">
+                  <label class="flex items-center gap-2 text-sm leading-none font-medium select-none">Quantidade</label>
+                  <input type="number" value="0"
+                    class="file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border px-3 py-1 text-base bg-input-background transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" />
+                </div>
+
+                <div class="space-y-2">
+                  <label class="flex items-center gap-2 text-sm leading-none font-medium select-none">Data e
+                    Hora</label>
+                  <input type="datetime-local" value="2026-03-27T19:00"
+                    class="file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border px-3 py-1 text-base bg-input-background transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" />
+                </div>
+              </div>
+
+              <button
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 shrink-0 outline-none h-9 px-4 py-2 bg-blue-600 text-white hover:bg-blue-700">
+                Registrar Movimentação
+              </button>
+            </form>
+          </div>
+
+          <div
+            class="bg-card text-card-foreground flex flex-col gap-6 rounded-xl border p-6 bg-white border-gray-200 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+              <h2 class="text-xl font-semibold text-gray-900">Histórico de Movimentações</h2>
+              <div class="flex items-center gap-2">
+                <svg class="lucide size-4 text-gray-600" viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z">
+                  </path>
+                </svg>
+                <span class="text-sm text-gray-600">Filtros</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div class="space-y-2">
+                <label class="flex items-center gap-2 text-sm leading-none font-medium select-none">Filtrar por
+                  Produto</label>
+                <button type="button" data-size="default"
+                  class="border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex w-full items-center justify-between gap-2 rounded-md border bg-input-background px-3 py-2 text-sm whitespace-nowrap transition-[color,box-shadow] outline-none data-[size=default]:h-9">
+                  <span>Todos os produtos</span>
+                  <svg class="lucide size-4 opacity-50" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m6 9 6 6 6-6"></path>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="space-y-2">
+                <label class="flex items-center gap-2 text-sm leading-none font-medium select-none">Filtrar por
+                  Tipo</label>
+                <button type="button" data-size="default"
+                  class="border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground flex w-full items-center justify-between gap-2 rounded-md border bg-input-background px-3 py-2 text-sm whitespace-nowrap transition-[color,box-shadow] outline-none data-[size=default]:h-9">
+                  <span>Todos os tipos</span>
+                  <svg class="lucide size-4 opacity-50" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="m6 9 6 6 6-6"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead>
+                  <tr class="border-b border-gray-200">
+                    <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Produto</th>
+                    <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Tipo</th>
+                    <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Quantidade</th>
+                    <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Data e Hora</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <td class="py-3 px-4 text-sm font-medium text-gray-900">Notebook Dell Inspiron</td>
+                    <td class="py-3 px-4">
+                      <span
+                        class="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 transition-[color,box-shadow] overflow-hidden bg-green-100 text-green-800 hover:bg-green-100 flex items-center gap-1 w-fit">
+                        <svg class="lucide size-3" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="m5 12 7-7 7 7"></path>
+                          <path d="M12 19V5"></path>
+                        </svg>
+                        Entrada
+                      </span>
+                    </td>
+                    <td class="py-3 px-4 text-sm text-gray-900">10</td>
+                    <td class="py-3 px-4 text-sm text-gray-600">25/03/2026, 10:30:00</td>
+                  </tr>
+
+                  <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <td class="py-3 px-4 text-sm font-medium text-gray-900">Mouse Logitech MX</td>
+                    <td class="py-3 px-4">
+                      <span
+                        class="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 transition-[color,box-shadow] overflow-hidden bg-red-100 text-red-800 hover:bg-red-100 flex items-center gap-1 w-fit">
+                        <svg class="lucide size-3" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M12 5v14"></path>
+                          <path d="m19 12-7 7-7-7"></path>
+                        </svg>
+                        Saída
+                      </span>
+                    </td>
+                    <td class="py-3 px-4 text-sm text-gray-900">5</td>
+                    <td class="py-3 px-4 text-sm text-gray-600">25/03/2026, 14:20:00</td>
+                  </tr>
+
+                  <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <td class="py-3 px-4 text-sm font-medium text-gray-900">Teclado Mecânico RGB</td>
+                    <td class="py-3 px-4">
+                      <span
+                        class="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 transition-[color,box-shadow] overflow-hidden bg-green-100 text-green-800 hover:bg-green-100 flex items-center gap-1 w-fit">
+                        <svg class="lucide size-3" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="m5 12 7-7 7 7"></path>
+                          <path d="M12 19V5"></path>
+                        </svg>
+                        Entrada
+                      </span>
+                    </td>
+                    <td class="py-3 px-4 text-sm text-gray-900">20</td>
+                    <td class="py-3 px-4 text-sm text-gray-600">26/03/2026, 09:15:00</td>
+                  </tr>
+
+                  <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <td class="py-3 px-4 text-sm font-medium text-gray-900">Monitor LG 27 polegadas</td>
+                    <td class="py-3 px-4">
+                      <span
+                        class="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 transition-[color,box-shadow] overflow-hidden bg-red-100 text-red-800 hover:bg-red-100 flex items-center gap-1 w-fit">
+                        <svg class="lucide size-3" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M12 5v14"></path>
+                          <path d="m19 12-7 7-7-7"></path>
+                        </svg>
+                        Saída
+                      </span>
+                    </td>
+                    <td class="py-3 px-4 text-sm text-gray-900">2</td>
+                    <td class="py-3 px-4 text-sm text-gray-600">26/03/2026, 11:45:00</td>
+                  </tr>
+
+                  <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <td class="py-3 px-4 text-sm font-medium text-gray-900">Webcam Logitech C920</td>
+                    <td class="py-3 px-4">
+                      <span
+                        class="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 transition-[color,box-shadow] overflow-hidden bg-green-100 text-green-800 hover:bg-green-100 flex items-center gap-1 w-fit">
+                        <svg class="lucide size-3" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="m5 12 7-7 7 7"></path>
+                          <path d="M12 19V5"></path>
+                        </svg>
+                        Entrada
+                      </span>
+                    </td>
+                    <td class="py-3 px-4 text-sm text-gray-900">15</td>
+                    <td class="py-3 px-4 text-sm text-gray-600">26/03/2026, 15:30:00</td>
+                  </tr>
+
+                  <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <td class="py-3 px-4 text-sm font-medium text-gray-900">SSD Samsung 1TB</td>
+                    <td class="py-3 px-4">
+                      <span
+                        class="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 transition-[color,box-shadow] overflow-hidden bg-red-100 text-red-800 hover:bg-red-100 flex items-center gap-1 w-fit">
+                        <svg class="lucide size-3" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="M12 5v14"></path>
+                          <path d="m19 12-7 7-7-7"></path>
+                        </svg>
+                        Saída
+                      </span>
+                    </td>
+                    <td class="py-3 px-4 text-sm text-gray-900">6</td>
+                    <td class="py-3 px-4 text-sm text-gray-600">27/03/2026, 08:00:00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+
+</html>

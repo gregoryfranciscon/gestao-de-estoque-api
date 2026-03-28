@@ -1,0 +1,31 @@
+/* Estilos exclusivos da tela Fornecedores */
+
+body[data-page="fornecedores"] main {
+  background: #f8fafc;
+}
+
+body[data-page="fornecedores"] main h1 {
+  letter-spacing: -0.02em;
+}
+
+body[data-page="fornecedores"] table thead tr {
+  background: #f9fafb;
+}
+
+body[data-page="fornecedores"] table tbody tr {
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+body[data-page="fornecedores"] table tbody tr:hover {
+  transform: translateX(2px);
+}
+
+body[data-page="fornecedores"] button:hover {
+  filter: saturate(1.1);
+}
+
+@media (max-width: 768px) {
+  body[data-page="fornecedores"] main {
+    padding: 1rem;
+  }
+}

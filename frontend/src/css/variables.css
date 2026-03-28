@@ -1,0 +1,17 @@
+﻿html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.lucide {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+

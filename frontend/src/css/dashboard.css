@@ -1,0 +1,33 @@
+/* Estilos exclusivos da tela Dashboard */
+
+body[data-page="dashboard"] main {
+  background: linear-gradient(180deg, #f8fbff 0%, #f9fafb 35%, #f9fafb 100%);
+}
+
+body[data-page="dashboard"] main h1 {
+  letter-spacing: -0.02em;
+}
+
+body[data-page="dashboard"] main > .space-y-6 > .grid > div {
+  border: 1px solid #e5e7eb;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+body[data-page="dashboard"] main > .space-y-6 > .grid > div:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -20px rgba(15, 23, 42, 0.5);
+}
+
+body[data-page="dashboard"] table tbody tr {
+  transition: transform 0.15s ease;
+}
+
+body[data-page="dashboard"] table tbody tr:hover {
+  transform: translateX(2px);
+}
+
+@media (max-width: 768px) {
+  body[data-page="dashboard"] main {
+    padding: 1rem;
+  }
+}
