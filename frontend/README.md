@@ -1,54 +1,44 @@
-﻿# Sistema de Gestão de Estoque - Frontend
+# Frontend
 
-Estrutura base de frontend em HTML, CSS e JavaScript puro (sem frameworks), organizada para facilitar manutenção, crescimento do projeto e integração com API REST no backend.
+Front-end do sistema de controle de estoque feito em HTML, CSS e JavaScript puro.
 
-## Organização de pastas
+O front esta integrado com a API Spring Boot e, no fluxo principal do projeto, e servido pelo proprio back-end.
 
-- `src/assets`: arquivos estáticos (imagens, ícones, fontes).
-- `src/css`: estilos globais, variáveis de design e estilos por página.
-- `src/js/services`: camada de comunicação com API (requisições HTTP).
-- `src/js/modules`: lógica por domínio/tela (produtos, fornecedores, movimentações, dashboard).
-- `src/js/utils`: funções utilitárias reutilizáveis.
-- `src/pages`: páginas HTML separadas por tela.
-- `src/components`: componentes HTML reutilizáveis (header, sidebar, tabela).
-
-## Árvore de diretórios
+## Estrutura
 
 ```text
 frontend/
-├── .gitignore
-├── index.html
-├── README.md
-└── src/
-    ├── assets/
-    │   ├── fonts/
-    │   ├── icons/
-    │   └── images/
-    ├── components/
-    │   ├── header.html
-    │   ├── sidebar.html
-    │   └── tabela.html
-    ├── css/
-    │   ├── dashboard.css
-    │   ├── fornecedores.css
-    │   ├── global.css
-    │   ├── movimentacoes.css
-    │   ├── produtos.css
-    │   └── variables.css
-    ├── js/
-    │   ├── main.js
-    │   ├── modules/
-    │   │   ├── dashboard.js
-    │   │   ├── fornecedores.js
-    │   │   ├── movimentacoes.js
-    │   │   └── produtos.js
-    │   ├── services/
-    │   │   └── api.js
-    │   └── utils/
-    │       └── helpers.js
-    └── pages/
-        ├── dashboard.html
-        ├── fornecedores.html
-        ├── movimentacoes.html
-        └── produtos.html
+|-- index.html
+`-- src/
+    |-- components/
+    |-- css/
+    |-- js/
+    `-- pages/
 ```
+
+## Pastas principais
+
+- `src/css`: estilos globais e estilos por pagina
+- `src/js/services`: camada de acesso a API
+- `src/js/modules`: logica por tela
+- `src/js/utils`: utilitarios reutilizaveis
+- `src/pages`: paginas HTML
+- `src/components`: fragmentos HTML reutilizaveis
+
+## Como usar no projeto
+
+Suba a aplicacao pela raiz:
+
+```powershell
+.\start-dev.bat
+```
+
+Depois acesse:
+
+```text
+http://localhost:8080
+```
+
+## Observacao
+
+O arquivo `dev-server.cjs` foi mantido apenas como utilitario opcional para desenvolvimento isolado do front. O fluxo oficial do projeto usa o Spring Boot servindo estes arquivos.
