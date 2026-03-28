@@ -1,0 +1,245 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app-feedback {
+  display: none;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.app-feedback.is-visible {
+  display: block;
+}
+
+.app-feedback.is-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+.app-feedback.is-success {
+  background: #ecfdf5;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+.app-empty-state {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #64748b;
+}
+
+.app-empty-state strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: #0f172a;
+}
+
+.app-hidden {
+  display: none !important;
+}
+
+.app-select {
+  width: 100%;
+  min-width: 0;
+  height: 2.25rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  background: #f3f4f6;
+  color: #111827;
+  padding: 0 0.875rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.app-input,
+.app-textarea {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: #111827;
+  padding: 0.625rem 0.875rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.app-textarea {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+.app-select:focus,
+.app-input:focus,
+.app-textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.app-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(2px);
+}
+
+.app-modal-panel {
+  width: min(100%, 36rem);
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.18);
+}
+
+.app-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem 0;
+}
+
+.app-modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.app-modal-close {
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  width: 2rem;
+  height: 2rem;
+  background: #fff;
+  color: #475569;
+  cursor: pointer;
+}
+
+.app-modal-body {
+  padding: 1rem 1.5rem 1.5rem;
+}
+
+.app-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.app-form-grid > .app-field.app-field-full {
+  grid-column: 1 / -1;
+}
+
+.app-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.app-field label {
+  color: #374151;
+  font-size: 0.875rem;
+}
+
+.app-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.app-button-primary,
+.app-button-secondary {
+  height: 2.5rem;
+  padding: 0 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.app-button-secondary {
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #0f172a;
+}
+
+.app-button-primary:hover,
+.app-button-secondary:hover {
+  transform: translateY(-1px);
+}
+
+.app-toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.app-toast {
+  min-width: 16rem;
+  max-width: 22rem;
+  padding: 0.875rem 1rem;
+  border-radius: 0.875rem;
+  background: #0f172a;
+  color: #fff;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.28);
+}
+
+.app-toast.app-toast-error {
+  background: #991b1b;
+}
+
+.app-toast.app-toast-success {
+  background: #166534;
+}
+
+@media (max-width: 768px) {
+  .app-modal-backdrop {
+    padding: 1rem;
+    align-items: flex-end;
+  }
+
+  .app-modal-panel {
+    width: 100%;
+    max-height: 90vh;
+    border-radius: 1rem 1rem 0 0;
+  }
+
+  .app-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app-modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .app-button-primary,
+  .app-button-secondary {
+    width: 100%;
+  }
+
+  .app-toast-container {
+    left: 1rem;
+    right: 1rem;
+  }
+
+  .app-toast {
+    min-width: 0;
+    max-width: none;
+  }
+}

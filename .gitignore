@@ -1,29 +1,47 @@
 HELP.md
+
+# Maven / build
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+dependency-reduced-pom.xml
 
-### IntelliJ IDEA ###
-.idea
+# Logs
+*.log
+logs/
+
+# Local database
+data/
+*.mv.db
+*.trace.db
+
+# IntelliJ IDEA
+.idea/
 *.iws
 *.iml
 *.ipr
+out/
 
-### Eclipse ###
+# Eclipse / STS
 .apt_generated
 .classpath
 .factorypath
 .project
-.settings
+.settings/
 .springBeans
 .sts4-cache
 
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
