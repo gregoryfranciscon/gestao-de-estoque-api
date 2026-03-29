@@ -1,16 +1,11 @@
 package com.gregory.controleestoque.model;
 
-import java.math.BigDecimal;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "produtos")
@@ -20,46 +15,55 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 120)
     private String nome;
-
-    @Column(nullable = false, length = 80)
-    private String categoria;
-
-    @Column(nullable = false, precision = 10, scale = 2)
+    private String descricao;
     private BigDecimal preco;
+    private int quantidade;
+    private int estoqueMinimo;
+    private String categoria;
+    private Long fornecedorId;
 
-    @Column(nullable = false)
-    private Integer estoqueAtual;
-
-    @Column(nullable = false)
-    private Integer estoqueMinimo;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "fornecedor_id", nullable = false)
-    private Fornecedor fornecedor;
-
-    protected Produto() {
+    public Produto() {
     }
 
-    public Produto(
-            String nome,
-            String categoria,
-            BigDecimal preco,
-            Integer estoqueAtual,
-            Integer estoqueMinimo,
-            Fornecedor fornecedor
-    ) {
+    public Produto(Long id, String nome, String descricao, BigDecimal preco, int quantidade, int estoqueMinimo, String categoria, Long fornecedorId) {
+        this.id = id;
         this.nome = nome;
-        this.categoria = categoria;
+        this.descricao = descricao;
         this.preco = preco;
-        this.estoqueAtual = estoqueAtual;
+        this.quantidade = quantidade;
         this.estoqueMinimo = estoqueMinimo;
-        this.fornecedor = fornecedor;
+        this.categoria = categoria;
+        this.fornecedorId = fornecedorId;
+    }
+
+    public void adicionarEstoque(int quantidade) {
+        if (quantidade <= 0) {
+            throw new RuntimeException("A quantidade deve ser maior que zero");
+        }
+        this.quantidade += quantidade;
+    }
+
+    public void removerEstoque(int quantidade) {
+        if (quantidade <= 0) {
+            throw new RuntimeException("A quantidade deve ser maior que zero");
+        }
+        if (quantidade > this.quantidade) {
+            throw new RuntimeException("Estoque insuficiente");
+        }
+        this.quantidade -= quantidade;
+    }
+
+    public boolean estoqueBaixo() {
+        return this.quantidade <= this.estoqueMinimo;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -70,12 +74,12 @@ public class Produto {
         this.nome = nome;
     }
 
-    public String getCategoria() {
-        return categoria;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public BigDecimal getPreco() {
@@ -86,31 +90,35 @@ public class Produto {
         this.preco = preco;
     }
 
-    public Integer getEstoqueAtual() {
-        return estoqueAtual;
+    public int getQuantidade() {
+        return quantidade;
     }
 
-    public void setEstoqueAtual(Integer estoqueAtual) {
-        this.estoqueAtual = estoqueAtual;
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 
-    public Integer getEstoqueMinimo() {
+    public int getEstoqueMinimo() {
         return estoqueMinimo;
     }
 
-    public void setEstoqueMinimo(Integer estoqueMinimo) {
+    public void setEstoqueMinimo(int estoqueMinimo) {
         this.estoqueMinimo = estoqueMinimo;
     }
 
-    public Fornecedor getFornecedor() {
-        return fornecedor;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setFornecedor(Fornecedor fornecedor) {
-        this.fornecedor = fornecedor;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
-    public StatusEstoque getStatusEstoque() {
-        return estoqueAtual <= estoqueMinimo ? StatusEstoque.ESTOQUE_BAIXO : StatusEstoque.NORMAL;
+    public Long getFornecedorId() {
+        return fornecedorId;
+    }
+
+    public void setFornecedorId(Long fornecedorId) {
+        this.fornecedorId = fornecedorId;
     }
 }

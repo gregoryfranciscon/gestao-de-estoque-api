@@ -1,145 +1,419 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Produtos - Sistema de Gestão de Estoque</title>
-    <link rel="stylesheet" href="../css/global.css" />
-    <link rel="stylesheet" href="../css/variables.css" />
-    <link rel="stylesheet" href="../css/produtos.css" />
-    <link rel="stylesheet" href="../css/app.css" />
-  </head>
 
-  <body data-page="produtos">
-    <div class="flex h-screen bg-gray-50">
-      <aside class="w-64 bg-slate-900 text-white flex flex-col">
-        <div class="p-6 border-b border-slate-700">
-          <h1 class="text-xl font-semibold">Sistema de Estoque</h1>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Produtos - Sistema de Gestão de Estoque</title>
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/produtos.css" />
+</head>
 
-        <nav class="flex-1 p-4">
-          <ul class="space-y-2">
-            <li>
-              <a href="./dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-slate-300 hover:bg-slate-800 hover:text-white">
-                <svg class="lucide size-5" viewBox="0 0 24 24" aria-hidden="true">
-                  <rect width="7" height="9" x="3" y="3" rx="1"></rect>
-                  <rect width="7" height="5" x="14" y="3" rx="1"></rect>
-                  <rect width="7" height="9" x="14" y="12" rx="1"></rect>
-                  <rect width="7" height="5" x="3" y="16" rx="1"></rect>
-                </svg>
-                <span>Dashboard</span>
-              </a>
-            </li>
-            <li>
-              <a href="./produtos.html" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors bg-blue-600 text-white">
-                <svg class="lucide size-5" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"></path>
-                  <path d="M12 22V12"></path>
-                  <polyline points="3.29 7 12 12 20.71 7"></polyline>
-                  <path d="m7.5 4.27 9 5.15"></path>
-                </svg>
-                <span>Produtos</span>
-              </a>
-            </li>
-            <li>
-              <a href="./fornecedores.html" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-slate-300 hover:bg-slate-800 hover:text-white">
-                <svg class="lucide size-5" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                </svg>
-                <span>Fornecedores</span>
-              </a>
-            </li>
-            <li>
-              <a href="./movimentacoes.html" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-slate-300 hover:bg-slate-800 hover:text-white">
-                <svg class="lucide size-5" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M8 3 4 7l4 4"></path>
-                  <path d="M4 7h16"></path>
-                  <path d="m16 21 4-4-4-4"></path>
-                  <path d="M20 17H4"></path>
-                </svg>
-                <span>Movimentações</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-
-        <div class="p-4 border-t border-slate-700">
-          <div class="text-xs text-slate-400">
-            <p>© 2026 Sistema de Gestão</p>
-          </div>
-        </div>
-      </aside>
-
-      <div class="flex-1 flex flex-col overflow-hidden">
-        <header class="bg-white border-b border-gray-200 px-8 py-4">
-          <div class="flex items-center justify-between">
-            <h2 class="text-2xl font-semibold text-gray-800">Sistema de Gestão de Estoque</h2>
-            <div class="flex items-center gap-4">
-              <span class="text-sm text-gray-600" data-current-date>Carregando data...</span>
-            </div>
-          </div>
-        </header>
-
-        <main class="flex-1 overflow-y-auto p-8">
-          <div class="space-y-6">
-            <div class="flex items-center justify-between">
-              <h1 class="text-3xl font-semibold text-gray-900">Produtos</h1>
-              <button id="create-product-button" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 shrink-0 outline-none h-9 px-4 py-2 bg-blue-600 text-white hover:bg-blue-700">
-                <svg class="lucide size-4" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M5 12h14"></path>
-                  <path d="M12 5v14"></path>
-                </svg>
-                Cadastrar Produto
-              </button>
-            </div>
-
-            <div class="app-feedback" id="products-feedback"></div>
-
-            <div class="bg-card text-card-foreground flex flex-col gap-6 rounded-xl border p-6 bg-white border-gray-200 shadow-sm">
-              <div class="mb-4">
-                <div class="relative">
-                  <svg class="lucide absolute left-3 top-1/2 transform -translate-y-1/2 size-4 text-gray-400" viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <path d="m21 21-4.3-4.3"></path>
-                  </svg>
-                  <input id="product-search" type="text" placeholder="Buscar produto por nome..." class="file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border px-3 py-1 text-base bg-input-background transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10" />
-                </div>
-              </div>
-
-              <div class="overflow-x-auto">
-                <table class="w-full">
-                  <thead>
-                    <tr class="border-b border-gray-200">
-                      <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Produto</th>
-                      <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Categoria</th>
-                      <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Preço</th>
-                      <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Quantidade</th>
-                      <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Fornecedor</th>
-                      <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Status</th>
-                      <th class="text-center py-3 px-4 text-sm font-semibold text-gray-700">Ações</th>
-                    </tr>
-                  </thead>
-                  <tbody id="products-table-body">
-                    <tr>
-                      <td colspan="7">
-                        <div class="app-empty-state">
-                          <strong>Carregando produtos</strong>
-                          <span>Aguarde enquanto a API responde.</span>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </main>
+<body data-page="produtos">
+  <div class="flex h-screen bg-gray-50">
+    <aside class="w-64 bg-slate-900 text-white flex flex-col">
+      <div class="p-6 border-b border-slate-700">
+        <h1 class="text-xl font-semibold">Sistema de Estoque</h1>
       </div>
-    </div>
 
-    <script type="module" src="../js/main.js"></script>
-  </body>
+
+      <nav class="flex-1 p-4">
+        <ul class="space-y-2">
+          <li>
+            <a href="./dashboard.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-slate-300 hover:bg-slate-800 hover:text-white">
+              <svg class="lucide size-5" viewBox="0 0 24 24" aria-hidden="true">
+                <rect width="7" height="9" x="3" y="3" rx="1"></rect>
+                <rect width="7" height="5" x="14" y="3" rx="1"></rect>
+                <rect width="7" height="9" x="14" y="12" rx="1"></rect>
+                <rect width="7" height="5" x="3" y="16" rx="1"></rect>
+              </svg>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="./produtos.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors bg-blue-600 text-white">
+              <svg class="lucide size-5" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z">
+                </path>
+                <path d="M12 22V12"></path>
+                <polyline points="3.29 7 12 12 20.71 7"></polyline>
+                <path d="m7.5 4.27 9 5.15"></path>
+              </svg>
+              <span>Produtos</span>
+            </a>
+          </li>
+          <li>
+            <a href="./fornecedores.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-slate-300 hover:bg-slate-800 hover:text-white">
+              <svg class="lucide size-5" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <span>Fornecedores</span>
+            </a>
+          </li>
+          <li>
+            <a href="./movimentacoes.html"
+              class="flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-slate-300 hover:bg-slate-800 hover:text-white">
+              <svg class="lucide size-5" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 3 4 7l4 4"></path>
+                <path d="M4 7h16"></path>
+                <path d="m16 21 4-4-4-4"></path>
+                <path d="M20 17H4"></path>
+              </svg>
+              <span>Movimentações</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="p-4 border-t border-slate-700">
+        <div class="text-xs text-slate-400">
+          <p>© 2026 Sistema de Gestão</p>
+        </div>
+      </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="bg-white border-b border-gray-200 px-8 py-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-2xl font-semibold text-gray-800">Sistema de Gestão de Estoque</h2>
+          <div class="flex items-center gap-4">
+            <span class="text-sm text-gray-600">sexta-feira, 27 de março de 2026</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-8">
+        <div class="space-y-6">
+          <div class="flex items-center justify-between">
+            <h1 class="text-3xl font-semibold text-gray-900">Produtos</h1>
+            <button
+              class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 shrink-0 outline-none h-9 px-4 py-2 bg-blue-600 text-white hover:bg-blue-700">
+              <svg class="lucide size-4" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12h14"></path>
+                <path d="M12 5v14"></path>
+              </svg>
+              Cadastrar Produto
+            </button>
+          </div>
+
+          <div
+            class="bg-card text-card-foreground flex flex-col gap-6 rounded-xl border p-6 bg-white border-gray-200 shadow-sm">
+            <div class="mb-4">
+              <div class="relative">
+                <svg class="lucide absolute left-3 top-1/2 transform -translate-y-1/2 size-4 text-gray-400"
+                  viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.3-4.3"></path>
+                </svg>
+                <input type="text" placeholder="Buscar produto por nome..."
+                  class="file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border px-3 py-1 text-base bg-input-background transition-[color,box-shadow] outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10" />
+              </div>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead>
+                  <tr class="border-b border-gray-200">
+                    <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Produto</th>
+                    <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Categoria</th>
+                    <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Preço</th>
+                    <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Quantidade</th>
+                    <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Fornecedor</th>
+                    <th class="text-left py-3 px-4 text-sm font-semibold text-gray-700">Status</th>
+                    <th class="text-center py-3 px-4 text-sm font-semibold text-gray-700">Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <td class="py-3 px-4 text-sm font-medium text-gray-900">Notebook Dell Inspiron</td>
+                    <td class="py-3 px-4 text-sm text-gray-600">Eletrônicos</td>
+                    <td class="py-3 px-4 text-sm text-gray-900">R$ 3500.00</td>
+                    <td class="py-3 px-4 text-sm text-gray-900">15</td>
+                    <td class="py-3 px-4 text-sm text-gray-600">Fornecedor ABC</td>
+                    <td class="py-3 px-4">
+                      <span
+                        class="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 transition-[color,box-shadow] overflow-hidden bg-green-100 text-green-800 hover:bg-green-100">Normal</span>
+                    </td>
+                    <td class="py-3 px-4">
+                      <div class="flex items-center justify-center gap-2">
+                        <button
+                          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 shrink-0 outline-none h-8 rounded-md px-2.5 hover:bg-blue-50 hover:text-blue-600">
+                          <svg class="lucide size-4" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                              d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z">
+                            </path>
+                            <path d="m15 5 4 4"></path>
+                          </svg>
+                        </button>
+                        <button
+                          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 shrink-0 outline-none h-8 rounded-md px-2.5 hover:bg-red-50 hover:text-red-600">
+                          <svg class="lucide size-4" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M3 6h18"></path>
+                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                            <line x1="10" x2="10" y1="11" y2="17"></line>
+                            <line x1="14" x2="14" y1="11" y2="17"></line>
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <td class="py-3 px-4 text-sm font-medium text-gray-900">Mouse Logitech MX</td>
+                    <td class="py-3 px-4 text-sm text-gray-600">Periféricos</td>
+                    <td class="py-3 px-4 text-sm text-gray-900">R$ 250.00</td>
+                    <td class="py-3 px-4 text-sm text-gray-900">45</td>
+                    <td class="py-3 px-4 text-sm text-gray-600">Fornecedor ABC</td>
+                    <td class="py-3 px-4">
+                      <span
+                        class="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 transition-[color,box-shadow] overflow-hidden bg-green-100 text-green-800 hover:bg-green-100">Normal</span>
+                    </td>
+                    <td class="py-3 px-4">
+                      <div class="flex items-center justify-center gap-2">
+                        <button
+                          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 shrink-0 outline-none h-8 rounded-md px-2.5 hover:bg-blue-50 hover:text-blue-600">
+                          <svg class="lucide size-4" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                              d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z">
+                            </path>
+                            <path d="m15 5 4 4"></path>
+                          </svg>
+                        </button>
+                        <button
+                          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 shrink-0 outline-none h-8 rounded-md px-2.5 hover:bg-red-50 hover:text-red-600">
+                          <svg class="lucide size-4" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M3 6h18"></path>
+                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                            <line x1="10" x2="10" y1="11" y2="17"></line>
+                            <line x1="14" x2="14" y1="11" y2="17"></line>
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <td class="py-3 px-4 text-sm font-medium text-gray-900">Teclado Mecânico RGB</td>
+                    <td class="py-3 px-4 text-sm text-gray-600">Periféricos</td>
+                    <td class="py-3 px-4 text-sm text-gray-900">R$ 450.00</td>
+                    <td class="py-3 px-4 text-sm text-gray-900">
+                      <div class="flex items-center gap-2">
+                        8
+                        <svg class="lucide size-4 text-orange-600" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path>
+                          <path d="M12 9v4"></path>
+                          <path d="M12 17h.01"></path>
+                        </svg>
+                      </div>
+                    </td>
+                    <td class="py-3 px-4 text-sm text-gray-600">Distribuidora XYZ</td>
+                    <td class="py-3 px-4">
+                      <span
+                        class="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 transition-[color,box-shadow] overflow-hidden bg-orange-100 text-orange-800 hover:bg-orange-100">Estoque
+                        Baixo</span>
+                    </td>
+                    <td class="py-3 px-4">
+                      <div class="flex items-center justify-center gap-2">
+                        <button
+                          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 shrink-0 outline-none h-8 rounded-md px-2.5 hover:bg-blue-50 hover:text-blue-600">
+                          <svg class="lucide size-4" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                              d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z">
+                            </path>
+                            <path d="m15 5 4 4"></path>
+                          </svg>
+                        </button>
+                        <button
+                          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 shrink-0 outline-none h-8 rounded-md px-2.5 hover:bg-red-50 hover:text-red-600">
+                          <svg class="lucide size-4" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M3 6h18"></path>
+                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                            <line x1="10" x2="10" y1="11" y2="17"></line>
+                            <line x1="14" x2="14" y1="11" y2="17"></line>
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <td class="py-3 px-4 text-sm font-medium text-gray-900">Monitor LG 27 polegadas</td>
+                    <td class="py-3 px-4 text-sm text-gray-600">Eletrônicos</td>
+                    <td class="py-3 px-4 text-sm text-gray-900">R$ 1200.00</td>
+                    <td class="py-3 px-4 text-sm text-gray-900">
+                      <div class="flex items-center gap-2">
+                        3
+                        <svg class="lucide size-4 text-orange-600" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path>
+                          <path d="M12 9v4"></path>
+                          <path d="M12 17h.01"></path>
+                        </svg>
+                      </div>
+                    </td>
+                    <td class="py-3 px-4 text-sm text-gray-600">Distribuidora XYZ</td>
+                    <td class="py-3 px-4">
+                      <span
+                        class="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 transition-[color,box-shadow] overflow-hidden bg-orange-100 text-orange-800 hover:bg-orange-100">Estoque
+                        Baixo</span>
+                    </td>
+                    <td class="py-3 px-4">
+                      <div class="flex items-center justify-center gap-2">
+                        <button
+                          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 shrink-0 outline-none h-8 rounded-md px-2.5 hover:bg-blue-50 hover:text-blue-600">
+                          <svg class="lucide size-4" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                              d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z">
+                            </path>
+                            <path d="m15 5 4 4"></path>
+                          </svg>
+                        </button>
+                        <button
+                          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 shrink-0 outline-none h-8 rounded-md px-2.5 hover:bg-red-50 hover:text-red-600">
+                          <svg class="lucide size-4" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M3 6h18"></path>
+                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                            <line x1="10" x2="10" y1="11" y2="17"></line>
+                            <line x1="14" x2="14" y1="11" y2="17"></line>
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <td class="py-3 px-4 text-sm font-medium text-gray-900">Webcam Logitech C920</td>
+                    <td class="py-3 px-4 text-sm text-gray-600">Periféricos</td>
+                    <td class="py-3 px-4 text-sm text-gray-900">R$ 550.00</td>
+                    <td class="py-3 px-4 text-sm text-gray-900">22</td>
+                    <td class="py-3 px-4 text-sm text-gray-600">Fornecedor ABC</td>
+                    <td class="py-3 px-4">
+                      <span
+                        class="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 transition-[color,box-shadow] overflow-hidden bg-green-100 text-green-800 hover:bg-green-100">Normal</span>
+                    </td>
+                    <td class="py-3 px-4">
+                      <div class="flex items-center justify-center gap-2">
+                        <button
+                          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 shrink-0 outline-none h-8 rounded-md px-2.5 hover:bg-blue-50 hover:text-blue-600">
+                          <svg class="lucide size-4" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                              d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z">
+                            </path>
+                            <path d="m15 5 4 4"></path>
+                          </svg>
+                        </button>
+                        <button
+                          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 shrink-0 outline-none h-8 rounded-md px-2.5 hover:bg-red-50 hover:text-red-600">
+                          <svg class="lucide size-4" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M3 6h18"></path>
+                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                            <line x1="10" x2="10" y1="11" y2="17"></line>
+                            <line x1="14" x2="14" y1="11" y2="17"></line>
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <td class="py-3 px-4 text-sm font-medium text-gray-900">Headset HyperX Cloud</td>
+                    <td class="py-3 px-4 text-sm text-gray-600">Áudio</td>
+                    <td class="py-3 px-4 text-sm text-gray-900">R$ 380.00</td>
+                    <td class="py-3 px-4 text-sm text-gray-900">12</td>
+                    <td class="py-3 px-4 text-sm text-gray-600">Importadora Global</td>
+                    <td class="py-3 px-4">
+                      <span
+                        class="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 transition-[color,box-shadow] overflow-hidden bg-green-100 text-green-800 hover:bg-green-100">Normal</span>
+                    </td>
+                    <td class="py-3 px-4">
+                      <div class="flex items-center justify-center gap-2">
+                        <button
+                          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 shrink-0 outline-none h-8 rounded-md px-2.5 hover:bg-blue-50 hover:text-blue-600">
+                          <svg class="lucide size-4" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                              d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z">
+                            </path>
+                            <path d="m15 5 4 4"></path>
+                          </svg>
+                        </button>
+                        <button
+                          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 shrink-0 outline-none h-8 rounded-md px-2.5 hover:bg-red-50 hover:text-red-600">
+                          <svg class="lucide size-4" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M3 6h18"></path>
+                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                            <line x1="10" x2="10" y1="11" y2="17"></line>
+                            <line x1="14" x2="14" y1="11" y2="17"></line>
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <td class="py-3 px-4 text-sm font-medium text-gray-900">SSD Samsung 1TB</td>
+                    <td class="py-3 px-4 text-sm text-gray-600">Armazenamento</td>
+                    <td class="py-3 px-4 text-sm text-gray-900">R$ 620.00</td>
+                    <td class="py-3 px-4 text-sm text-gray-900">
+                      <div class="flex items-center gap-2">
+                        2
+                        <svg class="lucide size-4 text-orange-600" viewBox="0 0 24 24" aria-hidden="true">
+                          <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path>
+                          <path d="M12 9v4"></path>
+                          <path d="M12 17h.01"></path>
+                        </svg>
+                      </div>
+                    </td>
+                    <td class="py-3 px-4 text-sm text-gray-600">Importadora Global</td>
+                    <td class="py-3 px-4">
+                      <span
+                        class="inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 gap-1 transition-[color,box-shadow] overflow-hidden bg-orange-100 text-orange-800 hover:bg-orange-100">Estoque
+                        Baixo</span>
+                    </td>
+                    <td class="py-3 px-4">
+                      <div class="flex items-center justify-center gap-2">
+                        <button
+                          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 shrink-0 outline-none h-8 rounded-md px-2.5 hover:bg-blue-50 hover:text-blue-600">
+                          <svg class="lucide size-4" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                              d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z">
+                            </path>
+                            <path d="m15 5 4 4"></path>
+                          </svg>
+                        </button>
+                        <button
+                          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 shrink-0 outline-none h-8 rounded-md px-2.5 hover:bg-red-50 hover:text-red-600">
+                          <svg class="lucide size-4" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M3 6h18"></path>
+                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                            <line x1="10" x2="10" y1="11" y2="17"></line>
+                            <line x1="14" x2="14" y1="11" y2="17"></line>
+                          </svg>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+
 </html>
