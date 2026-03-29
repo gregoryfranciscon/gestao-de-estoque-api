@@ -4,6 +4,7 @@ import com.gregory.controleestoque.model.Produto;
 import com.gregory.controleestoque.repository.ProdutoRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +24,20 @@ public class ProdutoController {
 
     @GetMapping
     public List<Produto> listar() {
-        return produtoRepository.findAll();
+        List<Produto> produtos = new ArrayList<>(produtoRepository.findAll());
+
+        Produto produtoTeste = new Produto();
+        produtoTeste.setId(0L);
+        produtoTeste.setNome("Produto Teste");
+        produtoTeste.setDescricao("Produto basico via GET");
+        produtoTeste.setPreco(new BigDecimal("9.90"));
+        produtoTeste.setQuantidade(10);
+        produtoTeste.setEstoqueMinimo(2);
+        produtoTeste.setCategoria("Teste");
+        produtoTeste.setFornecedorId(1L);
+
+        produtos.add(produtoTeste);
+        return produtos;
     }
 
     @GetMapping("/{id}")
