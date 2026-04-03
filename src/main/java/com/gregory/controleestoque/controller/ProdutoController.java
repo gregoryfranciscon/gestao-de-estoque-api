@@ -1,10 +1,10 @@
 package com.gregory.controleestoque.controller;
 
 import com.gregory.controleestoque.model.Produto;
+import com.gregory.controleestoque.repository.FornecedorRepository;
 import com.gregory.controleestoque.repository.ProdutoRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -17,36 +17,37 @@ import java.util.Optional;
 public class ProdutoController {
 
     private final ProdutoRepository produtoRepository;
+    private final FornecedorRepository fornecedorRepository;
 
-    public ProdutoController(ProdutoRepository produtoRepository) {
+    public ProdutoController(ProdutoRepository produtoRepository, FornecedorRepository fornecedorRepository) {
         this.produtoRepository = produtoRepository;
+        this.fornecedorRepository = fornecedorRepository;
     }
 
     @GetMapping
     public List<Produto> listar() {
-        List<Produto> produtos = new ArrayList<>(produtoRepository.findAll());
-
-        Produto produtoTeste = new Produto();
-        produtoTeste.setId(0L);
-        produtoTeste.setNome("Produto Teste");
-        produtoTeste.setDescricao("Produto basico via GET");
-        produtoTeste.setPreco(new BigDecimal("9.90"));
-        produtoTeste.setQuantidade(10);
-        produtoTeste.setEstoqueMinimo(2);
-        produtoTeste.setCategoria("Teste");
-        produtoTeste.setFornecedorId(1L);
-
-        produtos.add(produtoTeste);
-        return produtos;
+        return produtoRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<Produto> buscarPorId(@PathVariable Long id) {
-        return produtoRepository.findById(id);
+    public ResponseEntity<Produto> buscarPorId(@PathVariable Long id)  {
+        Optional<Produto> produto = produtoRepository.findById(id);
+
+        if (produto.isPresent()) {
+            return ResponseEntity.ok(produto.get());
+        }
+
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping
     public Produto cadastrar(@RequestBody Produto produto) {
+        if (produto.getFornecedorId() == null) {
+            throw new RuntimeException("Fornecedor Obrigatorio");
+        }
+        if (!fornecedorRepository.existsById(produto.getFornecedorId())) {
+            throw new RuntimeException(("Fornecedor nao encontrado"));
+        }
         return produtoRepository.save(produto);
     }
 
@@ -65,6 +66,14 @@ public class ProdutoController {
 
     @PutMapping("/{id}")
     public Produto atualizar(@PathVariable Long id, @RequestBody Produto produtoAtualizado) {
+
+        if (produtoAtualizado.getFornecedorId() == null) {
+            throw new RuntimeException("Fornecedor Obrigatorio");
+        }
+        if (!fornecedorRepository.existsById(produtoAtualizado.getFornecedorId())) {
+            throw new RuntimeException(("Fornecedor nao encontrado"));
+        }
+
         Produto produto = produtoRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Produto nao encontrado"));
 
@@ -84,3 +93,4 @@ public class ProdutoController {
         produtoRepository.deleteById(id);
     }
 }
+
