@@ -1,9 +1,13 @@
 package com.gregory.controleestoque.controller;
 
 import com.gregory.controleestoque.repository.FornecedorRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.gregory.controleestoque.model.Fornecedor;
+import com.gregory.controleestoque.repository.ProdutoRepository;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -13,11 +17,12 @@ import java.util.Optional;
     public class FornecedorController {
 
         private final FornecedorRepository fornecedorRepository;
+        private final ProdutoRepository produtoRepository;
 
-        public FornecedorController(FornecedorRepository fornecedorRepository) {
-            this.fornecedorRepository = fornecedorRepository;
-
-        }
+    public FornecedorController(FornecedorRepository fornecedorRepository, ProdutoRepository produtoRepository) {
+        this.fornecedorRepository = fornecedorRepository;
+        this.produtoRepository = produtoRepository;
+    }
 
         @GetMapping
         public List<Fornecedor> listar(){
@@ -79,15 +84,23 @@ import java.util.Optional;
             return ResponseEntity.notFound().build();
         }
 
-        @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}") // deletar fornecedor
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-            Optional<Fornecedor> fornecedorOptional = fornecedorRepository.findById(id);
+        Optional<Fornecedor> fornecedorOptional = fornecedorRepository.findById(id);
 
-            if(fornecedorOptional.isPresent()){
-                fornecedorRepository.deleteById(id);
-                return ResponseEntity.noContent().build();
-            }
+        if (fornecedorOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+
+        if (produtoRepository.existsByFornecedorId(id)) {
+            throw new ResponseStatusException(
+                HttpStatus.CONFLICT,
+                "Nao e possivel excluir fornecedor com produtos vinculados"
+            );
+        }
+
+        fornecedorRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 
 }
