@@ -1,105 +1,52 @@
 package com.gregory.controleestoque.controller;
 
-import com.gregory.controleestoque.repository.FornecedorRepository;
+import com.gregory.controleestoque.service.FornecedorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.gregory.controleestoque.model.Fornecedor;
-import com.gregory.controleestoque.repository.ProdutoRepository;
-import org.springframework.web.server.ResponseStatusException;
+
 
 import java.util.List;
-import java.util.Optional;
 
-@CrossOrigin(origins = "*")
+
+    @CrossOrigin(origins = "*")
     @RestController
     @RequestMapping("/fornecedores")
     public class FornecedorController {
 
-        private final FornecedorRepository fornecedorRepository;
-        private final ProdutoRepository produtoRepository;
+        private final FornecedorService fornecedorService;
 
-    public FornecedorController(FornecedorRepository fornecedorRepository, ProdutoRepository produtoRepository) {
-        this.fornecedorRepository = fornecedorRepository;
-        this.produtoRepository = produtoRepository;
+    public FornecedorController(FornecedorService fornecedorService) {
+        this.fornecedorService = fornecedorService;
     }
 
-        @GetMapping
-        public List<Fornecedor> listar(){
-            return fornecedorRepository.findAll();
+        @GetMapping // para listar validacao no service
+        public ResponseEntity<List<Fornecedor>> listar(){
+        return ResponseEntity.ok(fornecedorService.listar());
         }
 
-        @GetMapping("/{id}")
+        @GetMapping("/{id}") // busca por id validacao no service
         public ResponseEntity<Fornecedor> buscarPorId(@PathVariable Long id){
-            Optional<Fornecedor> fornecedor = fornecedorRepository.findById(id);
-
-            if(fornecedor.isPresent()){
-                return  ResponseEntity.ok(fornecedor.get());
-            }
-            return ResponseEntity.notFound().build();
+          Fornecedor fornecedor = fornecedorService.buscarPorId(id);
+          return ResponseEntity.ok(fornecedor);
         }
 
-        @PostMapping
+        @PostMapping // para cadastrar validacao no service
     public ResponseEntity<Fornecedor> cadastrar(@RequestBody Fornecedor fornecedor){
-
-            if (fornecedor.getNome() == null || fornecedor.getNome().trim().isEmpty()){
-                return ResponseEntity.badRequest().build();
-            }
-            if (fornecedor.getTelefone() == null || fornecedor.getTelefone().trim().isEmpty()){
-                return ResponseEntity.badRequest().build();
-            }
-            if (fornecedor.getEmail() == null || fornecedor.getEmail().trim().isEmpty()){
-                return ResponseEntity.badRequest().build();
-            }
-
-            Fornecedor fornecedorSalvo = fornecedorRepository.save(fornecedor);
-            return ResponseEntity.ok(fornecedorSalvo);
+        Fornecedor fornecedorSalvo = fornecedorService.cadastrar(fornecedor);
+            return ResponseEntity.status(HttpStatus.CREATED).body(fornecedorSalvo);
         }
 
-        @PutMapping("/{id}") // Para atualizar o fornecedor
+        @PutMapping("/{id}") // Para atualizar o fornecedor validacao no service
     public ResponseEntity<Fornecedor> atualizar(@PathVariable Long id, @RequestBody Fornecedor dadosAtualizados){
-
-            if (dadosAtualizados.getNome() == null || dadosAtualizados.getNome().trim().isEmpty()){
-                return ResponseEntity.badRequest().build();
-            }
-            if (dadosAtualizados.getTelefone() == null || dadosAtualizados.getTelefone().trim().isEmpty()){
-                return ResponseEntity.badRequest().build();
-            }
-            if (dadosAtualizados.getEmail() == null || dadosAtualizados.getEmail().trim().isEmpty()){
-                return ResponseEntity.badRequest().build();
-            }
-
-            Optional<Fornecedor> fornecedorOptional = fornecedorRepository.findById(id);
-
-            if(fornecedorOptional.isPresent()){
-                Fornecedor fornecedor = fornecedorOptional.get();
-
-                fornecedor.setNome(dadosAtualizados.getNome());
-                fornecedor.setTelefone(dadosAtualizados.getTelefone());
-                fornecedor.setEmail(dadosAtualizados.getEmail());
-
-                Fornecedor fornecedorSalvo = fornecedorRepository.save(fornecedor);
-                return ResponseEntity.ok(fornecedorSalvo);
-            }
-            return ResponseEntity.notFound().build();
+        Fornecedor fornecedorAtualizado = fornecedorService.atualizar(id, dadosAtualizados);
+            return ResponseEntity.ok(fornecedorAtualizado);
         }
 
-    @DeleteMapping("/{id}") // deletar fornecedor
+    @DeleteMapping("/{id}") // deletar fornecedor validacao no service
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        Optional<Fornecedor> fornecedorOptional = fornecedorRepository.findById(id);
-
-        if (fornecedorOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        if (produtoRepository.existsByFornecedorId(id)) {
-            throw new ResponseStatusException(
-                HttpStatus.CONFLICT,
-                "Nao e possivel excluir fornecedor com produtos vinculados"
-            );
-        }
-
-        fornecedorRepository.deleteById(id);
+        fornecedorService.deletar(id);
         return ResponseEntity.noContent().build();
     }
 
