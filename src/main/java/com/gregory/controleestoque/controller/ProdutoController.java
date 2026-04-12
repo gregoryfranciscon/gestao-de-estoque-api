@@ -48,5 +48,23 @@ public class ProdutoController {
         produtoService.deletar(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping("/{id}/entrada")
+    public ResponseEntity<ProdutoResponseDTO> entradaEstoque(
+        @PathVariable Long id,
+        @RequestParam Integer quantidade
+    ) {
+        ProdutoResponseDTO produtoAtualizado = produtoService.entradaEstoque(id, quantidade);
+        return ResponseEntity.ok(produtoAtualizado);
+    }
+
+    @PatchMapping("/{id}/saida")
+    public ResponseEntity<ProdutoResponseDTO> saidaEstoque(
+        @PathVariable Long id,
+        @RequestParam Integer quantidade
+    ) {
+        ProdutoResponseDTO produtoAtualizado = produtoService.saidaEstoque(id, quantidade);
+        return ResponseEntity.ok(produtoAtualizado);
+    }
 }
 

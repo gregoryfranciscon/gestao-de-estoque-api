@@ -117,6 +117,23 @@ public class ProdutoService {
         }
     }
 
+    private void validarQuantidadeMovimentacao(Integer quantidade) {
+        if (quantidade == null) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Quantidade obrigatoria"
+            );
+
+        }
+        if (quantidade <= 0) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Quantidade deve ser maior que zero"
+            );
+
+        }
+    }
+
     private ProdutoResponseDTO converterParaDTO(Produto produto) {
         ProdutoResponseDTO dto = new ProdutoResponseDTO();
 
@@ -144,5 +161,43 @@ public class ProdutoService {
         }
 
         return dto;
+    }
+
+    public ProdutoResponseDTO entradaEstoque(Long id, Integer quantidade) {
+        validarQuantidadeMovimentacao(quantidade);
+
+        Produto produto = produtoRepository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Produto nao encontrado"
+            ));
+
+        produto.setQuantidade(produto.getQuantidade() + quantidade);
+
+        Produto produtoSalvo = produtoRepository.save(produto);
+        return converterParaDTO(produtoSalvo);
+
+    }
+
+    public ProdutoResponseDTO saidaEstoque(Long id, Integer quantidade) {
+        validarQuantidadeMovimentacao(quantidade);
+
+        Produto produto = produtoRepository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Produto nao encontrado"
+            ));
+
+        if (quantidade > produto.getQuantidade()) {
+            throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST,
+                "Quantidade indisponivel em estoque"
+            );
+        }
+
+        produto.setQuantidade(produto.getQuantidade() - quantidade);
+
+        Produto produtoSalvo = produtoRepository.save(produto);
+        return converterParaDTO(produtoSalvo);
     }
 }

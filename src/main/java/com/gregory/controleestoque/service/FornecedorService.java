@@ -21,32 +21,28 @@ public class FornecedorService {
     }
 
 
-    // teste do deletar
+    // Deletar fornecedor
     public void deletar(Long id) {
+
         Fornecedor fornecedor = fornecedorRepository.findById(id)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Fornecedor nao encontrado"));
+            .orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Fornecedor nao encontrado"
+            ));
 
         if (produtoRepository.existsByFornecedorId(id)) {
             throw new ResponseStatusException(
                 HttpStatus.CONFLICT,
-                    "Nao e possivel excluir fornecedor com produtos vinculados"
+                "Nao e possivel excluir fornecedor com produtos vinculados"
             );
         }
         fornecedorRepository.delete(fornecedor);
     }
 
-    // teste do atualizar
+    // Atualizar fornecedor
     public Fornecedor atualizar(Long id, Fornecedor dadosAtualizados) {
 
-        if (dadosAtualizados.getNome() == null || dadosAtualizados.getNome().trim().isEmpty()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nome e obrigatorio");
-        }
-        if (dadosAtualizados.getTelefone() == null || dadosAtualizados.getTelefone().trim().isEmpty()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Telefone e obrigatorio");
-        }
-        if (dadosAtualizados.getEmail() == null || dadosAtualizados.getEmail().trim().isEmpty()){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email e obrigatorio");
-        }
+        validarFornecedor(dadosAtualizados);
 
         Fornecedor fornecedor = fornecedorRepository.findById(id)
             .orElseThrow(() -> new ResponseStatusException(
@@ -62,21 +58,13 @@ public class FornecedorService {
 
     }
 
-    // teste do cadastrar
+    // Cadastrar fornecedor
     public Fornecedor cadastrar(Fornecedor fornecedor){
-        if (fornecedor.getNome() == null || fornecedor.getNome().trim().isEmpty()){
-            throw new  ResponseStatusException(HttpStatus.BAD_REQUEST, "Nome e obrigatorio");
-        }
-        if (fornecedor.getTelefone() == null || fornecedor.getTelefone().trim().isEmpty()){
-            throw new  ResponseStatusException(HttpStatus.BAD_REQUEST, "Telefone e obrigatorio");
-        }
-        if (fornecedor.getEmail() == null || fornecedor.getEmail().trim().isEmpty()){
-            throw new  ResponseStatusException(HttpStatus.BAD_REQUEST, "Email e obrigatorio");
-        }
+        validarFornecedor(fornecedor);
         return fornecedorRepository.save(fornecedor);
     }
 
-    //teste do bucarPorID
+    // Buscar fornecedor por ID
     public Fornecedor buscarPorId(Long id){
         return fornecedorRepository.findById(id)
             .orElseThrow(() -> new ResponseStatusException(
@@ -85,9 +73,22 @@ public class FornecedorService {
             ));
     }
 
-    //teste do listar
+    // Listar fornecedores
     public List<Fornecedor> listar() {
         return fornecedorRepository.findAll();
+    }
+
+    // Validar dados do fornecedor
+    private void validarFornecedor(Fornecedor fornecedor) {
+        if (fornecedor.getNome() == null || fornecedor.getNome().trim().isEmpty()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nome e obrigatorio");
+        }
+        if (fornecedor.getTelefone() == null || fornecedor.getTelefone().trim().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Telefone e obrigatorio");
+        }
+        if (fornecedor.getEmail() == null || fornecedor.getEmail().trim().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email e obrigatorio");
+        }
     }
 
 
